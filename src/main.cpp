@@ -1,11 +1,3 @@
-/**
- *  Timestamps 
- *  12:10 - 13:10
- * 
- * 
- * 
- */
-
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 #include "Counter.h"
