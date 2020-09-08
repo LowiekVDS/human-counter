@@ -6,14 +6,6 @@
 #define PIR_1_INPUT 6
 #define PIR_2_INPUT 7
 
-// LCD pins
-#define LCD_RS 12
-#define LCD_EN 11
-#define LCD_D4 5
-#define LCD_D5 4
-#define LCD_D6 3
-#define LCD_D7 2
-
 // Buttons
 #define START_BTN 8
 #define STOP_BTN 9
