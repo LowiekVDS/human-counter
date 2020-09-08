@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <LiquidCrystal.h>
+#include "LiquidCrystal_I2C.h"
 #include "Counter.h"
 
 // PIR pins
@@ -23,7 +23,7 @@
 Counter counter;
 
 //Global LCD object
-LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
+LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 // state values
 
@@ -55,7 +55,7 @@ void setup() {
   pinMode(RS_BTN, INPUT_PULLUP);
 
   counter.reset();
-  lcd.begin(16, 2);
+  lcd.begin();
   updateLcd();
 
   Serial.begin(115200);
@@ -118,7 +118,7 @@ void updateLcd() {
   lcd.setCursor(0, 0);
   lcd.print("#People: ");
   lcd.print(counter.getCounter());
-  lcd.setCursor(0, 1);
+  lcd.setCursor(0, 2);
   lcd.print("State: ");
   if (globalState == STATE_ACTIVE) {
     lcd.print("Active");
