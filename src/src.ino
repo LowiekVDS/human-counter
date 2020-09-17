@@ -33,7 +33,7 @@ int globalState = STATE_IDLE;
 
 #define DEBOUNCE_MS 50
 #define SLOWDOWN_MS 5
-#define START_DELAY 6000
+#define START_DELAY 60000
 
 void updateLcd();
 
@@ -122,27 +122,18 @@ void updateLcd() {
   lcd.setCursor(0, 0);
   lcd.print("People IN:  ");
   lcd.print(in);
-  Serial.print("People IN:  ");
-  Serial.println(in);
   lcd.setCursor(0, 1);
   lcd.print("People OUT: ");
   lcd.print(out);
-  Serial.print("People OUT: ");
-  Serial.println(out);
   lcd.setCursor(0, 2);
   lcd.print("Present:    ");
   lcd.print(netto);
-  Serial.print("Present:    ");
-  Serial.println(netto);
   lcd.setCursor(0, 3);
   lcd.print("State:");
-  Serial.print("State:");
   if (globalState == STATE_ACTIVE) {
     lcd.print("    Active");
-    Serial.println("    Active");
   } else if (globalState == STATE_IDLE) {
     lcd.print("      Idle");
-    Serial.println("      Idle");
   } else {
     lcd.print("   Unknown");
   }
