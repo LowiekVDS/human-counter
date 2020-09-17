@@ -2,16 +2,26 @@
 
 void Counter::reset() {
     counter = 0;
+    totalInCounter = 0;
+    totalOutCounter = 0;
 }
 
 void Counter::increase() {
-    counter += 1;
+    totalInCounter += 1;
 }
 
 void Counter::decrease() {
-    counter = counter - 1 > 0 ? counter - 1 : 0;
+    totalOutCounter = totalOutCounter + 1 > totalInCounter ? totalOutCounter : totalOutCounter + 1;
 }
 
 int Counter::getCounter() {
-    return counter;
+    return totalInCounter - totalOutCounter;
+}
+
+int Counter::getTotalIn() {
+  return totalInCounter;
+}
+
+int Counter::getTotalOut() {
+  return totalOutCounter;
 }

@@ -4,7 +4,7 @@
 
 // PIR pins
 #define PIR_1_INPUT 6
-#define PIR_2_INPUT 7
+#define PIR_2_INPUT 5
 
 // Buttons
 #define START_BTN 8
@@ -33,6 +33,7 @@ int globalState = STATE_IDLE;
 
 #define DEBOUNCE_MS 50
 #define SLOWDOWN_MS 5
+#define START_DELAY 6000
 
 void updateLcd();
 
@@ -51,7 +52,9 @@ void setup() {
   updateLcd();
 
   Serial.begin(115200);
-  Serial.println("Setup finished");
+  Serial.println("Setup finished... Calibrating sensors...");
+  delay(START_DELAY);
+  Serial.println("Calibration done");
 }
 
 void loop() {
@@ -106,17 +109,41 @@ void loop() {
 }
 
 void updateLcd() {
+  // Format the counting values to 4 chars (+ NULL)
+  char in[5];     
+  char out[5];    
+  char netto[5];  
+
+  sprintf(in, "%4d", counter.getTotalIn());
+  sprintf(out, "%4d", counter.getTotalOut());
+  sprintf(netto, "%4d", counter.getCounter()); 
+  
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("#People: ");
-  lcd.print(counter.getCounter());
+  lcd.print("People IN:  ");
+  lcd.print(in);
+  Serial.print("People IN:  ");
+  Serial.println(in);
+  lcd.setCursor(0, 1);
+  lcd.print("People OUT: ");
+  lcd.print(out);
+  Serial.print("People OUT: ");
+  Serial.println(out);
   lcd.setCursor(0, 2);
-  lcd.print("State: ");
+  lcd.print("Present:    ");
+  lcd.print(netto);
+  Serial.print("Present:    ");
+  Serial.println(netto);
+  lcd.setCursor(0, 3);
+  lcd.print("State:");
+  Serial.print("State:");
   if (globalState == STATE_ACTIVE) {
-    lcd.print("Active");
+    lcd.print("    Active");
+    Serial.println("    Active");
   } else if (globalState == STATE_IDLE) {
-    lcd.print("Idle");
+    lcd.print("      Idle");
+    Serial.println("      Idle");
   } else {
-    lcd.print("Unknown");
+    lcd.print("   Unknown");
   }
 }

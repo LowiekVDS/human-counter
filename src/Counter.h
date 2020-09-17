@@ -14,8 +14,12 @@ class Counter {
     void decrease();
 
     int getCounter();
+    int getTotalIn();
+    int getTotalOut();
 
   private:
     int counter;
+    int totalInCounter;
+    int totalOutCounter;
 };
 #endif // COUNTER_H
